@@ -41,6 +41,12 @@ from google.cloud.pubsub_v1.publisher.futures import Future
 # Initialize Faker for generating mock data
 fake = Faker()
 
+def get_current_timestamp_micros() -> int:
+    """
+    Get the current timestamp in microseconds since epoch.
+    """
+    return int(time.time() * 1_000_000)
+
 def get_weighted_choice(distribution: Dict[str, float]) -> str:
     """
     Select a key from a dictionary based on its weighted distribution.
@@ -114,7 +120,7 @@ def generate_event(config: Dict[str, Any]) -> Dict[str, Any]:
         event_details_obj["price_usd"] = round(random.uniform(0.99, 99.99), 2)
 
     event = {
-        "generation_timestamp": time.time(),
+        "generation_timestamp": get_current_timestamp_micros(),
         "event_id": str(uuid.uuid4()),
         "event_timestamp": fake.iso8601(),
         "user_id": fake.uuid4(),
