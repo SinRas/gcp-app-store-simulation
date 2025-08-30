@@ -178,7 +178,19 @@ _Et voilà! 🎉 You have the distribution of requests based on real-world popul
 
 > Notice: The `rate of request generation` is not actually changed here! We only make the distribution of countries that appear, to match those modulation factors mentioned. Still not a Non-homogenous Poisson! This process is similar to a "fixed rate Poisson process (assuming pods generate events at a fixed rate), where the contribution of countries changes over time, but always add to a fixed total rate."
 
+### [Writing in Progress] Step 2.2: Keep track of users 📔
 
+> Keep a list of users and unifromly select them in each country!
+
+### [Writing in Progress] Step 2.3: Generate faster! Non-homogeneous Poisson 🏃‍♂️
+
+> Use thinning algorithms since it's not that bad in this scenario! since max/min ratio of total rate at all times is around ~0.85 (need to recalculate this with new data).
+
+### [Writing in Progress] Step 2.4: Event faster? 🏎
+
+> Even faster with discretization and uniform selection -> one shot, many events.
+
+> Use the shuffling trick to speed up things don't generate new things! -> both for users and cases and all.
 
 
 
