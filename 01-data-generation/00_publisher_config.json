@@ -1,0 +1,33 @@
+{
+  "publisher_id": "PLACEHOLDER-PUBLISHER-ID",
+  "description": "Simulate user interactions around the world.",
+  "gcp_project_id": "PLACEHOLDER-GCP-PROJECT-ID",
+  "pubsub_topic_name": "PLACEHOLDER-PUB-SUB-TOPIC-NAME",
+  "schema_gcs_path": "gs://PLACEHOLDER-GCS-PATH/user_interaction_v1.json",
+
+  "generation_rate": {
+    "events_per_second": 0,
+    "randomness_factor": 0.2
+  },
+  "country_code": {
+    "distribution": {
+      "US": 0.3,
+      "CA": 0.3,
+      "IR": 0.4
+    }
+  },  
+  "device_type": {
+    "distribution": { "phone": 0.8, "tablet": 0.15, "desktop": 0.05 }
+  },
+  "event_type": {
+    "distribution": {
+      "app_open": 0.4,
+      "search": 0.3,
+      "app_install": 0.15,
+      "review_submit": 0.05,
+      "in_app_purchase": 0.05,
+      "app_close": 0.04,
+      "app_uninstall": 0.01
+    }
+  }
+}

@@ -1,0 +1,43 @@
+# =================================================================
+# This Kubernetes manifest tells GKE how to run our container.
+# It defines a Deployment, which manages a set of identical pods.
+# =================================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appstore-publisher-deployment
+spec:
+  # You can change the number of replicas to scale your data generation up or down.
+  replicas: 0
+  selector:
+    matchLabels:
+      app: appstore-publisher
+  template:
+    metadata:
+      labels:
+        app: appstore-publisher
+    spec:
+      # This is the name of the Kubernetes Service Account that we will create.
+      # It will be linked to a GCP Service Account with the right permissions.
+      serviceAccountName: publisher-ksa
+      containers:
+      - name: gcs-publisher-runner
+        # NOTICE: Replace this with the full path to your image in Artifact Registry.
+        # This path should match the `IMAGE_TAG` defined during the docker image creation.
+        image: FULL/PATH/TO/YOUR/IMAGE/gcs-publisher:v1
+        
+        # Here we specify the command and arguments for the container.
+        # This overrides the Dockerfile's ENTRYPOINT.
+        # We pass the GCS paths to our entrypoint.sh script.
+        command: ["/bin/bash", "/app/entrypoint.sh"]
+        args: [
+          "gs://PATH/ON/YOUR/GCS/publisher_initial.py",  # NOTICE: Replace this with the full path to `publisher_initial.py` file on GCS.
+          "gs://PATH/ON/YOUR/GCS/publisher_config.json"  # NOTICE: Replace this with the full path to `publisher_config.json` file on GCS.
+        ]
+        resources:
+          requests:
+            cpu: "100m" # 0.1 vCPU
+            memory: "128Mi" # 128 Mebibytes
+          limits:
+            cpu: "250m"
+            memory: "256Mi"

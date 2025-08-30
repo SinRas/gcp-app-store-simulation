@@ -1,0 +1,5 @@
+# Jupyter Notebook files
+.ipynb_checkpoints
+
+# Private files (no credentials, yet persoanl paths)
+**/*_private.*
