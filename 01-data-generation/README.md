@@ -159,6 +159,7 @@ Now update the `publisher_config.json` file "country_infos" section and add the 
 ```
 
 Next step is to add a simple time modulation based on 24-hour cycles. This looks not too bad (we will replace this with a more realistic curve estimated from real-data later):
+
 $$
 factor = 0.03 + 0.97 \times \frac{1}{2} \left(
   1 + \cos( (HOUR-16) * (2* \pi /24) )
