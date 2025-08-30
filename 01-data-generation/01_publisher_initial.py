@@ -123,7 +123,7 @@ def generate_event(config: Dict[str, Any]) -> Dict[str, Any]:
         "app_id": f"app_{random.randint(1000, 9999)}",
         "device_type": get_weighted_choice(config.get("device_type", {}).get("distribution", {})),
         "os_version": f"{random.choice(['iOS', 'Android'])} {random.randint(12, 15)}.{random.randint(0, 5)}",
-        "country_code": get_weighted_choice(config.get("country_code", {}).get("distribution", {})),
+        "country_code": get_weighted_choice(config.get("country_infos", {}).get("distribution", {})),
         "event_details": json.dumps(event_details_obj)
     }
     return event
@@ -239,7 +239,7 @@ def main() -> None:
         - pubsub_topic_name: Name of the Pub/Sub topic
         - event_type: Event type distribution configuration
         - device_type: Device type distribution configuration
-        - country_code: Country code distribution configuration
+        - country_infos: Country code distribution configuration
         - generation_rate: Rate control settings (optional)
         - description: Human-readable description of the data profile
     
@@ -261,7 +261,7 @@ def main() -> None:
             "device_type": {
                 "distribution": {"phone": 0.8, "tablet": 0.15, "desktop": 0.05}
             },
-            "country_code": {
+            "country_infos": {
                 "distribution": {"US": 0.3, "CA": 0.3, "IR": 0.4}
             },
             "generation_rate": {

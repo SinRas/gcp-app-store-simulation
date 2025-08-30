@@ -9,7 +9,7 @@
     "events_per_second": 0,
     "randomness_factor": 0.2
   },
-  "country_code": {
+  "country_infos": {
     "distribution": {
       "US": 0.3,
       "CA": 0.3,
