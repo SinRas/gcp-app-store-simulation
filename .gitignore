@@ -3,3 +3,9 @@
 
 # Private files (no credentials, yet persoanl paths)
 **/*_private.*
+
+# Local files
+## 01-data-generation
+01-data-generation/data
+01-data-generation/publisher.py
+01-data-generation/publisher_config.json
