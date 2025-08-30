@@ -121,8 +121,61 @@ Checkout `Google Pub/Sub`'s subscription metrics and see if requests are getting
 > If all is good, let's move to the next step! 🥳
 
 
+## Step 2: Enhance data generation
+
+In this section, we will incrementally improve upon the data generation process to make it more realistic and challenging (I mean fun 😄).
+
+### Step 2.1: Modulate requests by real-world data
+
+Combine the data in the sources ([1], [2], and [4]) to get a table like this:
+| Country | Population | InternetPenetrationFraction | Timezone |
+|:-------:|-----------:|:---------------------------:|---------:|
+| IND | 1,463,865,525 | 0.56 |  2.0 |
+| CHN | 1,416,096,094 | 0.77 |  4.5 |
+| USA |   347,275,807 | 0.93 | -7.5 |
+| IDN |   285,721,236 | 0.69 |  3.5 |
+| ... | ... | ... | ... |
+
+> Hints: you can use `pd.read_html(url)` to load all the tables in a page directly, and select the relevant one in each website. Then use some data clearning to make country names comparable. Finally merge all together and select those columns. 🪄
+
+> Hint 2: I've already done it and you can use the notebook or the CSV file in this folder. 😄
+
+> Hint 3: Yes, you can ask any of the common LLMs/chatbots/AI-buddies/... to make the table for you. 👍
+
+Now update the `publisher_config.json` file "country_infos" section and add the "Population*InternetPenetrationFraction" as country weights, e.g.
+```json
+{
+  // ...
+  "country_infos": {
+    "distribution": {
+      "IND":  819764694.00,
+      "CHN": 1090393992.38,
+      "IR": 73934144.80,
+      // ...
+    }
+  },
+  // ...
+}
+```
+
+Next step is to add a simple time modulation based on 24-hour cycles. This looks not too bad (we will replace this with a more realistic curve estimated from real-data later):
+$$
+factor = 0.03 + 0.97 \times \frac{1}{2} \left(
+  1 + \cos( (HOUR-16) * (2* \pi /24) )
+\right)
+$$
+
+> Essentially a 24-hour cyclic increase and decrease of activity, with peak being around 4:00 PM and lowest around 4 AM.
+
+Now use the updated code and config files to run the request generation again.
+- Copy and rename files `02_publisher_modulated.py` -> `publisher.py` and the config.
+- Upload to GCS, overwrite files to they are accessible at the same paths.
+- Change GKE replicas to 0, and then to 4 (for example), to terminate and for containers/pods to download new python scripts and configs.
 
 
+_Et voilà! 🎉 You have the distribution of requests based on real-world population, internet penetration, timezone, and 24h cycles!_
+
+> Notice: The `rate of request generation` is not actually changed here! We only make the distribution of countries that appear, to match those modulation factors mentioned. Still not a Non-homogenous Poisson! This process is similar to a "fixed rate Poisson process (assuming pods generate events at a fixed rate), where the contribution of countries changes over time, but always add to a fixed total rate."
 
 
 

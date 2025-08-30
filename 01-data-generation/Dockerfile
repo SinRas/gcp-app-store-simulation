@@ -23,7 +23,7 @@ RUN python3 -m venv ${VENV_PATH}
 # Install the required Python libraries INTO the virtual environment
 RUN ${VENV_PATH}/bin/pip install --no-cache-dir --upgrade pip && \
     ${VENV_PATH}/bin/pip install --no-cache-dir google-cloud-pubsub \
-        faker google-cloud-storage numpy numba
+        faker google-cloud-storage numpy numba pytz
 
 # Copy the entrypoint script into the container
 COPY entrypoint.sh .
