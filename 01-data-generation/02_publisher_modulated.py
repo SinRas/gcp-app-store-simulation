@@ -155,10 +155,12 @@ def generate_event(config: Dict[str, Any]) -> Dict[str, Any]:
         country_infos.get("timezone", {})
     )
 
+    current_timestamp = get_current_timestamp_micros()
+
     event = {
-        "generation_timestamp": get_current_timestamp_micros(),
+        "generation_timestamp": current_timestamp,
         "event_id": str(uuid.uuid4()),
-        "event_timestamp": fake.iso8601(),
+        "event_timestamp": current_timestamp + random.randint(-30*24*60, -30*24*60)*60*1_000_000,
         "user_id": fake.uuid4(),
         "session_id": fake.uuid4(),
         "event_type": event_type,

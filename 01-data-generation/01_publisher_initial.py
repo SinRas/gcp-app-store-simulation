@@ -119,10 +119,12 @@ def generate_event(config: Dict[str, Any]) -> Dict[str, Any]:
         event_details_obj["item_id"] = f"iap_{random.randint(100,999)}"
         event_details_obj["price_usd"] = round(random.uniform(0.99, 99.99), 2)
 
+    current_timestamp = get_current_timestamp_micros()
+
     event = {
-        "generation_timestamp": get_current_timestamp_micros(),
+        "generation_timestamp": current_timestamp,
         "event_id": str(uuid.uuid4()),
-        "event_timestamp": fake.iso8601(),
+        "event_timestamp": current_timestamp,
         "user_id": fake.uuid4(),
         "session_id": fake.uuid4(),
         "event_type": event_type,
