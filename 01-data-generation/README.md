@@ -182,7 +182,7 @@ _Et voilà! 🎉 You have the distribution of requests based on real-world popul
 
 > Keep a list of users and unifromly select them in each country!
 
-### [Writing in Progress] Step 2.3: Generate faster! Non-homogeneous Poisson 🏃‍♂️
+### [Writing in Progress] Step 2.3: Non-homogeneous Poisson 🏃‍♂️
 
 > Use thinning algorithms since it's not that bad in this scenario! since max/min ratio of total rate at all times is around ~0.85 (need to recalculate this with new data).
 

@@ -4,6 +4,10 @@
   "gcp_project_id": "PLACEHOLDER-GCP-PROJECT-ID",
   "pubsub_topic_name": "PLACEHOLDER-PUB-SUB-TOPIC-NAME",
   "schema_gcs_path": "gs://PLACEHOLDER-GCS-PATH/user_interaction_v1.json",
+  "simulation_parameters": {
+      "users_population_fraction": 0.001,
+      "gke_replicas_factor": 10
+  },
   "generation_rate": {
     "events_per_second": 0,
     "randomness_factor": 0.2
