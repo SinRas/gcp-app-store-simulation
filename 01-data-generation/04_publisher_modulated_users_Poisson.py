@@ -324,8 +324,8 @@ def publish_messages_batch(project_id: str, topic_name: str, config: Dict[str, A
                 time.sleep(max(0, sleep_duration))
 
             # Optional: print a status message periodically
-            if published_count > 0 and published_count % 1000 == 0:
-                print(f"Published {published_count} messages so far...")
+            if published_count > 0 and published_count % 100_000 == 0:
+                print(f"Published {published_count} messages so far...", flush=True)
 
     except KeyboardInterrupt:
         print(f"\nPublisher stopped by user. Total published: {published_count}, failed: {failed_count}")
@@ -434,11 +434,21 @@ Examples:
     user_interactions_per_day = simulation_parameters.get("user_interactions_per_day", 57.0)
     user_interactions_per_second = user_interactions_per_day/(24*60*60)
     # --- Step 3: Initialize users by country ---
-    for country, weight in country_distribution.items():
+    print("--------------------------------")
+    print("Initializing users by country...")
+    keys = list(country_distribution)
+    for country in keys:
+        weight = country_distribution[country]
         n_users_in_country = int(weight * users_population_fraction / gke_replicas_factor)
+        if n_users_in_country == 0:
+            del country_distribution[country]
+            continue
         USERS_BY_COUNTRY[country] = [fake.uuid4() for _ in range(n_users_in_country)]
         GLOBAL_RATE_MAXIMUM += n_users_in_country * user_interactions_per_second
-
+        # Report
+        print(f"Initialized {country}: {n_users_in_country} users")
+    print("--------------------------------")
+    print(f"GLOBAL_RATE_MAXIMUM: {GLOBAL_RATE_MAXIMUM}", flush=True)
     # Initialize global timestamp
     GLOBAL_TIMESTAMP_MICROS = get_current_timestamp_micros()
     GLOBAL_TIMESTAMP_HOUR = get_current_hour()
