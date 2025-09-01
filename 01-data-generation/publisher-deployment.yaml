@@ -20,8 +20,6 @@ spec:
       # This is the name of the Kubernetes Service Account that we will create.
       # It will be linked to a GCP Service Account with the right permissions.
       serviceAccountName: publisher-ksa
-      restartPolicy: Never
-      backoffLimit: 0
       containers:
       - name: gcs-publisher-runner
         # NOTICE: Replace this with the full path to your image in Artifact Registry.
@@ -39,7 +37,7 @@ spec:
         resources:
           requests:
             cpu: "150m" # 0.15 vCPU
-            memory: "190Mi" # 190 Mebibytes
+            memory: "256Mi" # 190 Mebibytes
           limits:
-            cpu: "235m"
-            memory: "256Mi"
+            cpu: "300m"
+            memory: "375Mi"
