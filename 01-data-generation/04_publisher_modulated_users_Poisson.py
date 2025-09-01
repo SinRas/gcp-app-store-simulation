@@ -99,20 +99,26 @@ def user_daily_activity_pattern(hour: float) -> float:
     modulation = HOURLY_MODULATION_FACTORS[int( (hour%24)*5 )]
     return modulation
 
-def generate_time_modulated_weights(country_distribution: Dict[str, float], country_timezone: Dict[str, float]) -> Dict[str, float]:
+def generate_time_modulated_weights(country_infos: Dict[str, Any]) -> Dict[str, float]:
     """
     Get time-modulated weights for each country based on the country's timezone.
     
     This function uses the country's timezone to modulate the weights of the countries.
     """
+    # --- Step 1: Get the current hour ---
     current_hour = round(GLOBAL_TIMESTAMP_HOUR, 2)
-    modulated_weights = {}
-    modulated_weights_sum = 0.0
+    # --- Step 2: Get the country distribution and timezone ---
+    country_distribution = country_infos.get("distribution", {})
+    country_timezone = country_infos.get("timezone", {})
+    country_distribution_modulated = country_infos.get("distribution_modulated", {})
+    # --- Step 3: Generate the time-modulated weights ---
+    country_distribution_modulated_sum = 0.0
     for country, weight in country_distribution.items():
         country_hour = current_hour + country_timezone[country]
-        modulated_weights[country] = weight * user_daily_activity_pattern(country_hour)
-        modulated_weights_sum += modulated_weights[country]
-    return modulated_weights, modulated_weights_sum
+        country_distribution_modulated[country] = weight * user_daily_activity_pattern(country_hour)
+        country_distribution_modulated_sum += country_distribution_modulated[country]
+    # --- Step 4: Return the time-modulated weights ---
+    return country_distribution_modulated, country_distribution_modulated_sum
 
 def get_weighted_choice(distribution: Dict[str, float]) -> str:
     """
@@ -188,8 +194,7 @@ def generate_event(config: Dict[str, Any]) -> Dict[str, Any]:
     #########################
     country_infos = config.get("country_infos", {})
     country_distribution_modulated, country_distribution_modulated_sum = generate_time_modulated_weights(
-        country_infos.get("distribution", {}),
-        country_infos.get("timezone", {})
+        country_infos
     )
     # Thinning step: accept/reject an event!
     if random.random() > (country_distribution_modulated_sum/GLOBAL_RATE_MAXIMUM):
@@ -419,7 +424,9 @@ Examples:
 
     # Initialize users by country
     # --- Step 1: Get the country distribution ---
-    country_distribution = config.get("country_infos", {}).get("distribution", {})
+    country_infos = config.get("country_infos", {})
+    country_distribution = country_infos.get("distribution", {})
+    country_infos['distribution_modulated'] = { country: 0.0 for country in country_distribution }
     # --- Step 2: Get the simulation parameters ---
     simulation_parameters = config.get("simulation_parameters", {})
     users_population_fraction = simulation_parameters.get("users_population_fraction", 0.001)
