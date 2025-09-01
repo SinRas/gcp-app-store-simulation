@@ -38,8 +38,8 @@ spec:
         ]
         resources:
           requests:
-            cpu: "100m" # 0.1 vCPU
-            memory: "128Mi" # 128 Mebibytes
+            cpu: "150m" # 0.15 vCPU
+            memory: "190Mi" # 190 Mebibytes
           limits:
-            cpu: "250m"
+            cpu: "235m"
             memory: "256Mi"
