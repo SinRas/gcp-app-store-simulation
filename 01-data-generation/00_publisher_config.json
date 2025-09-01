@@ -6,7 +6,8 @@
   "schema_gcs_path": "gs://PLACEHOLDER-GCS-PATH/user_interaction_v1.json",
   "simulation_parameters": {
       "users_population_fraction": 0.001,
-      "gke_replicas_factor": 10
+      "gke_replicas_factor": 10,
+      "user_interactions_per_day": 57.0
   },
   "generation_rate": {
     "events_per_second": 0,

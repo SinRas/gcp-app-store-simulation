@@ -178,13 +178,22 @@ _Et voilà! 🎉 You have the distribution of requests based on real-world popul
 
 > Notice: The `rate of request generation` is not actually changed here! We only make the distribution of countries that appear, to match those modulation factors mentioned. Still not a Non-homogenous Poisson! This process is similar to a "fixed rate Poisson process (assuming pods generate events at a fixed rate), where the contribution of countries changes over time, but always add to a fixed total rate."
 
-### [Writing in Progress] Step 2.2: Keep track of users 📔
+### Step 2.2: Keep track of users 📔
 
-> Keep a list of users and unifromly select them in each country!
+Now let's use the file `01-data-generation/03_publisher_modulated_users.py`. For each country, a fixed set of `user_id`s is generated once, and each container/pod will have it's own set of fixed users. Whenever an event happens in each country, a random `user_id` is selected from that list.
 
-### [Writing in Progress] Step 2.3: Non-homogeneous Poisson 🏃‍♂️
+To make it more reliable and scalable, each container will only keep track of a fraction of total users available and generate request for that subset. This ensures each pod can remain whithin memory and CPU limits of a cluster.
 
-> Use thinning algorithms since it's not that bad in this scenario! since max/min ratio of total rate at all times is around ~0.85 (need to recalculate this with new data).
+### [Writing in Progress] Step 2.3: Non-homogeneous Poisson 🎣
+
+Now let's use the new file for an actual **non-homogeneous Poisson Process Simulation**. Read through it `01-data-generation/04_publisher_modulated_users_Poisson.py` for implementation details, but here are the key things about it:
+
+- **Estimate Maximum Rate:** I use the total population and internet penetration factor to estimate a maximum event generation rate
+
+- **Thinning Method:** Generate an exponential sample from the _maximum rate_, accept it based on daily patterns of each country and their populations.
+
+- **Global Time:** Global time starts from the beginning of the simulation and advances based on Poisson process simulation, making it advance much faster.
+
 
 ### [Writing in Progress] Step 2.4: Event faster? 🏎
 
