@@ -4,6 +4,14 @@ It demonstrates a scalable architecture for generation, ingesting, processing, a
 
 <p align="center"><strong><a href="https://sinras.github.io/static/project_gcp_appstore_simulator_7ee5">🚀 View the Live Project Showcase Page 🚀</a></strong></p>
 
+**Also checkout live dashboards:**
+
+- [📊 Metabse: Request Genration Stats](https://sinras-app-store-simulation.metabaseapp.com/public/dashboard/bdebe992-02cc-420b-a352-76efefa9dd4a): Number of simulated events per hour and its geographical distribution.
+
+- [📊 Metabse: User Statistics Dashboard](https://sinras-app-store-simulation.metabaseapp.com/public/dashboard/10d83b10-a81b-40d1-866f-83aa642293bf): Event time user activity patterns, population and country effects.
+
+
+
 ## ✨ Key Skills & Technologies Showcased
 
 | Category | Technologies & Concepts |

@@ -187,7 +187,7 @@ Now let's use the file `01-data-generation/03_publisher_modulated_users.py`. For
 
 To make it more reliable and scalable, each container will only keep track of a fraction of total users available and generate request for that subset. This ensures each pod can remain whithin memory and CPU limits of a cluster.
 
-### [Writing in Progress] Step 2.3: Non-homogeneous Poisson 🎣
+### Step 2.3: Non-homogeneous Poisson 🎣
 
 Now let's use the new file for an actual **non-homogeneous Poisson Process Simulation**. Read through it `01-data-generation/04_publisher_modulated_users_Poisson.py` for implementation details, but here are the key things about it:
 
