@@ -6,6 +6,9 @@ In this section, I'll explain how the _scalable real-world synthetic data genera
 - **Real-world:** World population data [1] is multiplied by each country's internet penetration factor [2] to generate a _potential users_ number, which then is converted to _request generation rate_. Rates are further modulated by time-zone for each country [4], as well as a 24-hour/day-night activity pattern.
 - **Synthetic data generation:** Since the rate of change is variable through time, a _Non-homogeneous/Time-varying Poisson Process Simulation_ method is used to accurately simulate real-world behavior.
 
+Checkout the dashboard for data generate rates here at project's the public **Metabase dashboard**: [📊 Metabse: Request Genration Stats](https://sinras-app-store-simulation.metabaseapp.com/public/dashboard/bdebe992-02cc-420b-a352-76efefa9dd4a)
+
+
 
 > Recommendation: Keep a file with all the relevant information about your project as well as useful bash scripts. You will get back to them a lot! 😉  
 > Example file `environment_variables_and_scripts.sh` on project page.  

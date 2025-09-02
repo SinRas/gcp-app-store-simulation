@@ -6,7 +6,9 @@ This demonstrates the final step in the data value chain: transforming aggregate
 
 ## Dashboards Links
 
-- [Metabse: User Statistics Dashboard](https://sinras-app-store-simulation.metabaseapp.com/public/dashboard/10d83b10-a81b-40d1-866f-83aa642293bf)
+- [📊 Metabse: User Statistics Dashboard](https://sinras-app-store-simulation.metabaseapp.com/public/dashboard/10d83b10-a81b-40d1-866f-83aa642293bf)
+
+- [📊 Metabse: Request Genration Stats](https://sinras-app-store-simulation.metabaseapp.com/public/dashboard/bdebe992-02cc-420b-a352-76efefa9dd4a)
 
 
 ## From Raw Data to Live Forecasts
