@@ -197,6 +197,11 @@ Now let's use the new file for an actual **non-homogeneous Poisson Process Simul
 
 - **Global Time:** Global time starts from the beginning of the simulation and advances based on Poisson process simulation, making it advance much faster.
 
+### Step 2.3.5: Manage my budget 💰
+
+Running this script on GCP costs money, and the most expensive step so far has been request generation. So I limited the rate of request generation (keeping the simulation time untouched), to pay much less and make it personally managable to pay for. 🥲
+
+The file that applies these changes and resumes from the last simulation timestamp (hard-coded since I don't wanna do this often) is `01-data-generation/05_publisher_modulated_users_Poisson_throttled.py`.
 
 ### [Writing in Progress] Step 2.4: Event faster? 🏎
 
